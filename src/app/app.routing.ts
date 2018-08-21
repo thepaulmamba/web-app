@@ -2,53 +2,64 @@ import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { HostLayoutComponent } from './layouts/host/host-layout.component';
+import { PublicLayoutComponent } from './layouts/public/public-layout.component';
+
+import { SessionGuard, AdminGuard, HostGuard } from './guards';
 
 export const AppRoutes: Routes = [
     {
-      path: '',
-      redirectTo: 'dashboard',
-      pathMatch: 'full',
-    }, {
-      path: '',
-      component: AdminLayoutComponent,
-      children: [
+        path: '',
+        redirectTo: 'auth',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        canActivate: [SessionGuard, AdminGuard],
+        canActivateChild: [SessionGuard, AdminGuard],
+        component: AdminLayoutComponent,
+        children: [
           {
+            path: 'admin',
+            loadChildren: './pages/admin-page/admin-page.module#AdminPageModule'
+          }
+        ]
+      },
+      {
         path: '',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
-    }, {
-        path: 'components',
-        loadChildren: './components/components.module#ComponentsModule'
-    }, {
-        path: 'forms',
-        loadChildren: './forms/forms.module#Forms'
-    }, {
-        path: 'tables',
-        loadChildren: './tables/tables.module#TablesModule'
-    }, {
-        path: 'maps',
-        loadChildren: './maps/maps.module#MapsModule'
-    }, {
-        path: 'widgets',
-        loadChildren: './widgets/widgets.module#WidgetsModule'
-    }, {
-        path: 'charts',
-        loadChildren: './charts/charts.module#ChartsModule'
-    }, {
-        path: 'calendar',
-        loadChildren: './calendar/calendar.module#CalendarModule'
-    }, {
+        canActivate: [SessionGuard, HostGuard],
+        canActivateChild: [SessionGuard, HostGuard],
+        component: HostLayoutComponent,
+        children: [
+          {
+            path: 'host',
+            loadChildren: './pages/host-page/host-page.module#HostPageModule'
+          }
+        ]
+      },
+      {
         path: '',
-        loadChildren: './userpage/user.module#UserModule'
-    }, {
+        component: PublicLayoutComponent,
+        children: [
+          {
+            path: 'public',
+            loadChildren: './pages/public-page/public-page.module#PublicPageModule'
+          }
+        ]
+      },
+      {
         path: '',
-        loadChildren: './timeline/timeline.module#TimelineModule'
-    }
-  ]}, {
-      path: '',
-      component: AuthLayoutComponent,
-      children: [{
-        path: 'pages',
-        loadChildren: './pages/pages.module#PagesModule'
-      }]
-    }
+        component: AuthLayoutComponent,
+        children: [
+          {
+            path: 'auth',
+            loadChildren: './pages/auth-page/auth-page.module#AuthPageModule'
+          }
+        ]
+      },
+      {
+        path: '**',
+        redirectTo: 'auth',
+        pathMatch: 'full'
+      }
 ];
