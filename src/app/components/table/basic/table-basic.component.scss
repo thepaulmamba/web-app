@@ -1,0 +1,27 @@
+.sort {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.sort i {
+  margin-bottom: -15px;
+}
+
+.sort i:hover {
+  cursor: default;
+  color: gray;
+}
+
+table {
+  font-size: 12px;
+}
+
+table th {
+  font-size: 10px;
+  font-weight: 500px;
+}
+
+a {
+  cursor: pointer;
+  color: rgb(72, 96, 228);
+}

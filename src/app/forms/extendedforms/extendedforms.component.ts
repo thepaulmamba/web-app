@@ -15,6 +15,7 @@ declare const $: any;
 })
 
 export class ExtendedFormsComponent implements OnInit {
+    public startDate = '';
     simpleSlider = 40;
     doubleSlider = [20, 60];
 
