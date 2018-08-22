@@ -36,7 +36,7 @@ export const REPORTER_INITIAL_STATE: IReporterStore = {
 }
 
 export function reporterReducer(state: IReporterStore = REPORTER_INITIAL_STATE, action): IReporterStore {
-  switch (action.type){
+  switch (action.type) {
     case REPORTER_CREATE_ATTEMPT: return reporter.reporterCreateAttempt(state, action);
     case REPORTER_CREATE_FAILED: return reporter.reporterCreateFailed(state, action);
     case REPORTER_CREATE_FULFILLED: return reporter.reporterCreateFulfilled(state, action);

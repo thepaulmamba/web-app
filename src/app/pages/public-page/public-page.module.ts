@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PublicRoutes } from './public-page.routing';
 import { DashboardModule } from '../../dashboard/dashboard.module';
-import { ReportModule } from '../../report';
 
 @NgModule({
   imports: [
@@ -12,8 +11,7 @@ import { ReportModule } from '../../report';
     RouterModule.forChild(PublicRoutes),
     FormsModule,
     ReactiveFormsModule,
-    DashboardModule,
-    ReportModule
+    DashboardModule
   ],
   declarations: [
   ],

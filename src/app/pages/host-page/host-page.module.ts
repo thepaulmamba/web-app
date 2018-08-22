@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HostRoutes } from './host-page.routing';
 import { DashboardModule } from '../../dashboard/dashboard.module';
-import { ReportModule } from '../../report';
-import { ProfileModule } from '../../profile';
 
 @NgModule({
   imports: [
@@ -13,9 +11,7 @@ import { ProfileModule } from '../../profile';
     RouterModule.forChild(HostRoutes),
     FormsModule,
     ReactiveFormsModule,
-    DashboardModule,
-    ReportModule,
-    ProfileModule
+    DashboardModule
   ],
   declarations: [
   ],

@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NavbarAuthModule } from '../../shared/navbar-auth/navbar-auth.module';
 import { FooterModule } from '../../shared/footer/footer.module';
 import { AuthPageRoutes } from './auth-page.routing';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +19,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     DirectiveModule,
     FormsModule,
     ReactiveFormsModule,
-    NavbarAuthModule,
     FooterModule,
     ComponentModule
   ],

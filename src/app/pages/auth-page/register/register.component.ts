@@ -61,7 +61,6 @@ export class RegisterComponent implements OnInit {
   }
   submit() {
     if (this.signUpForm.valid) {
-      this.userActionCreator.Register(this.signUpForm.value);
       this.ngOnInit();
     } else {
 

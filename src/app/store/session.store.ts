@@ -1,5 +1,5 @@
-import { ISession } from '../interface/session/session.interface';
-import { IUser } from '../interface/user';
+import { ISession } from '../interface';
+import { IUser } from '../interface';
 import {
   SESSION_CREATE_ATTEMPT,
   SESSION_CREATE_FULFILLED,

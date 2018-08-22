@@ -21,7 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private sessionActionCreator: SessionActionCreator) {
-      this.sessionActionCreator.SessionDestroy();
+
     }
 
   ngOnInit() {
@@ -36,12 +36,6 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   submit() {
-      this.sessionActionCreator.ForgotPassword(this.forgotPasswordForm.value.loginName, (err, data) => {
-          if (err) {
-              return swal('Forgot Password Error', err, 'error');
-          }
-          swal('Forgot Password Success', data, 'success');
-          this.router.navigate([`auth/login`]);
-      });
+
   }
 }

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule, isDevMode } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { APP_BASE_HREF } from '@angular/common';
@@ -12,6 +12,7 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatExpansionModule,
   MatGridListModule,
@@ -37,7 +38,12 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+
+/* REDUX */
+import { NgRedux, NgReduxModule, DevToolsExtension } from '@angular-redux/store';
+import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
+import { rootReducer, INITIAL_STATE, IAppState } from './store/app.store';
+import { ActionCreatorModule } from './store/action-creators/action-creator.module';
 
 import { AppComponent } from './app.component';
 
@@ -47,8 +53,15 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedpluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { HostLayoutComponent } from './layouts/host/host-layout.component';
+import { PublicLayoutComponent } from './layouts/public/public-layout.component';
 
 import { AppRoutes } from './app.routing';
+import { ServiceModule } from 'app/services';
+
+/* Routing Guards */
+import { AdminGuard, SessionGuard, HostGuard, CanDeactivateGuard } from './guards';
+import { TranslationPipe } from './pipes/translation.pipe';
 
 @NgModule({
   exports: [
@@ -88,9 +101,13 @@ import { AppRoutes } from './app.routing';
 export class MaterialModule {}
 
 @NgModule({
-    imports:      [
+    imports: [
         CommonModule,
         BrowserAnimationsModule,
+        NgReduxModule,
+        NgReduxRouterModule,
+        ActionCreatorModule.forRoot(),
+        ServiceModule.forRoot(),
         FormsModule,
         RouterModule.forRoot(AppRoutes),
         HttpModule,
@@ -99,13 +116,32 @@ export class MaterialModule {}
         SidebarModule,
         NavbarModule,
         FooterModule,
-        FixedpluginModule
+        FixedpluginModule,
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent
+        AuthLayoutComponent,
+        HostLayoutComponent,
+        PublicLayoutComponent
     ],
-    bootstrap:    [ AppComponent ]
+    bootstrap:    [ AppComponent ],
+    providers: [
+      SessionGuard,
+      AdminGuard,
+      HostGuard,
+      CanDeactivateGuard
+    ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    ngRedux: NgRedux<IAppState>,
+    devTools: DevToolsExtension) {
+    if (isDevMode()) {
+      const enhancers = [devTools.enhancer()];
+      ngRedux.configureStore( rootReducer, INITIAL_STATE, [], enhancers );
+    } else {
+      ngRedux.configureStore( rootReducer, INITIAL_STATE, []);
+    }
+  }
+}

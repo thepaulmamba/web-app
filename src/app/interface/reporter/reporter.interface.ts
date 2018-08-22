@@ -1,7 +1,5 @@
 import { IUser } from '../user/user.interface';
 import { IHost } from '../host/host.interface';
-import { ITeam } from '../team/team.interface';
-import { IConversation } from '../conversation/conversation.interface';
 
 export interface IReporter {
     _id?: string;
@@ -21,8 +19,6 @@ export interface IReporter {
     dateCreationTeam?: string;
     _reporter?: IUser;
     _host?: IHost;
-    _team?: ITeam;
-    _activeTeam?: ITeam;
     createdAt?: Date;
     updatedAt?: Date;
     teamLeaders?: any[];

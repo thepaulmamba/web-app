@@ -1,4 +1,4 @@
-import { IHost } from '../interface/host/host.interface';
+import { IHost } from '../interface';
 import {
   HOST_CREATE_ATTEMPT,
   HOST_CREATE_FAILED,
@@ -24,11 +24,9 @@ import {
   HOST_SELECT_ACTIVE_DESIGN_FULFILLED
 } from './actions/host.action';
 import * as host from './reducers/host.reducer';
-import { IDesignView } from '../interface/design/design-view.interface';
 export interface IHostStore {
   hosts: IHost[];
   selectedHost: IHost;
-  selectedHostActiveDesign: IDesignView;
   spinner: boolean;
   error: string;
   success: string;
@@ -37,14 +35,13 @@ export interface IHostStore {
 export const HOST_INITIAL_STATE: IHostStore = {
   hosts: [],
   selectedHost: null,
-  selectedHostActiveDesign: null,
   spinner: false,
   error: null,
   success: null
 }
 
 export function hostReducer(state: IHostStore = HOST_INITIAL_STATE, action): IHostStore {
-  switch (action.type){
+  switch (action.type) {
     case HOST_CREATE_ATTEMPT: return host.hostCreateAttempt(state, action);
     case HOST_CREATE_FAILED: return host.hostCreateFailed(state, action);
     case HOST_CREATE_FULFILLED: return host.hostCreateFulfilled(state, action);

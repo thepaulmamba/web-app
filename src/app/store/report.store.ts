@@ -1,4 +1,4 @@
-import { IReportView } from '../interface/report/report-view.interface';
+import { IReport } from '../interface';
 
 import {
   REPORT_CREATE_ATTEMPT,
@@ -20,8 +20,8 @@ import {
 
 import * as report from './reducers/report.reducer';
 export interface IReportStore {
-  reports: IReportView[];
-  selectedReport: IReportView;
+  reports: IReport[];
+  selectedReport: IReport;
   spinner: boolean;
   error: string;
   success: string;
@@ -36,7 +36,7 @@ export const REPORT_INITIAL_STATE: IReportStore = {
 }
 
 export function reportReducer(state: IReportStore = REPORT_INITIAL_STATE, action): IReportStore {
-  switch (action.type){
+  switch (action.type) {
     case REPORT_CREATE_ATTEMPT: return report.reportCreateAttempt(state, action);
     case REPORT_CREATE_FAILED: return report.reportCreateFailed(state, action);
     case REPORT_CREATE_FULFILLED: return report.reportCreateFulfilled(state, action);

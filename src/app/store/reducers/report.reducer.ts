@@ -76,8 +76,8 @@ export const reportUpdateAttempt = (state: IReportStore, action: any) => {
 };
 
 export const reportUpdateFulfilled = (state: IReportStore, action: any) => {
-  const index = _.findIndex(state.reports, (h) => { return h.id == action.payload._id });
-  let newArray = state.reports.slice();
+  const index = _.findIndex(state.reports, (h) => h.id === action.payload._id);
+  const newArray = state.reports.slice();
   newArray.splice(index, 1, action.payload);
   return tassign<IReportStore, IReportStore>(state, {
     reports: newArray,
@@ -172,9 +172,9 @@ export const reportDesignTypeUpdateAttempt = (state: IReportStore, action: any) 
 }
 
 export const reportDesignTypeUpdateFulfilled = (state: IReportStore, action: any) => {
-  const index = _.findIndex(state.reports, (h) => { return h._id === action.payload._id; });
+  const index = _.findIndex(state.reports, (h) => h._id === action.payload._id);
   const report = { ...state.reports[index], isSpecific: action.payload.isSpecific };
-  let newArray = state.reports.slice();
+  const newArray = state.reports.slice();
   newArray.splice(index, 1, report);
   return tassign<IReportStore, IReportStore>(state, {
     reports: newArray,
